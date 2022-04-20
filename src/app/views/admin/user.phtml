@@ -1,0 +1,43 @@
+<?php
+if (count($value) > 0) {
+    echo '<table id="myTable" class="display" style="width:100%">
+    <thead>
+           <tr>
+           <th>#</th>
+           <th>NAME</th>
+           <th>EMAIL</th>
+           <th>ROLE</th>
+           <th>DELETE USER</th>
+       </tr></thead><tbody>';
+    foreach ($value as $v) {
+        
+          echo '
+           <tr>
+           <td>' . $v->id . '</td>
+           <td>' . $v->name . '</td>
+           <td>' . $v->email . '</td>
+           <td>
+           <form action="changeRole" method="POST">
+             <select name="changeRole" onchange="this.form.submit()" >
+               <option value="' . $v->role . '">' . $v->role . '</option>
+               <option value="admin,'.$v->id.'">admin</option>
+               <option value="manager,'.$v->id.'">manager</option>
+               <option value="user,'.$v->id.'">user</option>
+           </select>
+           </form></td>
+           <form action="userDelete" method="POST">
+           <td><button type="submit" name="userDelete" value="' . $v->id . '" >DELETE</button></td>
+           </form>
+       </tr>
+          
+           ';
+    }
+    echo ' </tbody></table>';
+}
+?>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>

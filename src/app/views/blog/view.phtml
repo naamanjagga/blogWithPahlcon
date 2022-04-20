@@ -1,0 +1,56 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <?php
+            // echo $value->blog_id;
+            foreach ($value as $b) {
+                echo '<div class="card" style="width: 35rem;">
+    <img class="card-img-top" src="https://media.istockphoto.com/photos/blog-light-bulb-sign-picture-id1331943301?b=1&k=20&m=1331943301&s=170667a&w=0&h=8blzipdh9bFJbUtN7Nr4tbgwqnSLXl7icNf2IQp6wO0=" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">' . $b->title . '</h5>
+      <p class="card-text">' . $b->content . '</p>
+      <form action="../like/like" method="POST">
+      <button name="like" value="' . $b->blog_id . '"  class="btn btn-primary">' . $likes . ' Like</button>
+      </form>';
+
+                echo '<form action="../comment/commentDelete" method="POST" ><table>';
+                $i = 1;
+                foreach ($comment as $c) {
+                        echo '<tr class="border-bottom pt-3"><td class="px-3 border-right">' . $i . '</td><td>' . $c->comment . '</td>';
+                        if ($id == $c->user_id) {
+                        echo '<td><button class="bg-white text-primary border-0">EDIT</button></td><td><button name="commentDelete" value="' . $c->comment_id . '" class="bg-white text-danger border-0">DELETE</button></td></tr>';
+                    }
+                    $i++;
+                }
+                echo '</table></form>';
+                echo '<form action="../comment/comment" method="POST">
+      <input class="p-1" name="comment" placeholder="comment" >
+      <button class="btn btn-light border " name="btn_comment" value="' . $b->blog_id . '" >Comment</button>
+      </form>
+    </div>
+  </div>';
+            }
+            ?>
+        </div>
+        <div class="col-md-4">
+            <a href="feed" class="">
+                <h1>MORE BLOG'S</h1>
+            </a>
+            <?php foreach ($moreBLogs as $b) {
+                echo ' <div class="card mt-5" style="width: 23rem; flex-direction: row;">
+                <img src="https://media.istockphoto.com/photos/blog-light-bulb-sign-picture-id1331943301?b=1&k=20&m=1331943301&s=170667a&w=0&h=8blzipdh9bFJbUtN7Nr4tbgwqnSLXl7icNf2IQp6wO0=" class="card-img-top" alt="..." width="30%" >
+                <div class="card-body">
+                    <h5 class="card-title">' . $b->title . '</h5>
+                    <p class="card-text">' . $b->content . '</p>
+                    <form action="view?bearer='.$token.'" method="POST" >
+                    <button class="btn bg-dark text-muted" name="view" value="' . $b->blog_id . '">View Blog</button>
+                    </form>
+                </div>
+            </div>';
+            }
+            ?>
+        </div>
+    </div>
+</div>
+</div>

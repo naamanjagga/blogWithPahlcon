@@ -1,0 +1,43 @@
+<?php
+if (count($value) > 0) {
+    echo '<table id="myTable" class="display" style="width:100%">
+    <thead>
+           <tr>
+           <th>#</th>
+           <th>TITLE</th>
+           <th>FILE</th>
+           <th>CONTENT</th>
+           <th>VIEW</th>
+           <th>EDIT</th>
+           <th>DELETE</th>
+       </tr></thead><tbody>';
+    foreach ($value as $v) {
+        
+          echo '
+           <tr>
+           <td>' . $v->blog_id . '</td>
+           <td>' . $v->title . '</td>
+           <td>' . $v->file . '</td>
+           <td>' . $v->content . '</td>
+           <form action="../blog/view?bearer='.$token.'" method="POST">
+           <td><button type="submit" value="' . $v->blog_id . '" name="view"  >VIEW</button></td>
+           </form>
+           <form action="../edit/index?bearer='.$token.'" method="POST">
+           <td><button type="submit" value="' . $v->blog_id . ',' . $v->title . ',' . $v->content . '" name="editBlog"  >EDIT</button></td>
+           </form>
+           <form action="blogDelete" method="POST">
+           <td><button type="submit" value="' . $v->blog_id . '" name="blogDelete"  >DELETE</button></td>
+           </form>
+       </tr>
+          
+           ';
+    }
+    echo ' </tbody></table>';
+}
+?>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
